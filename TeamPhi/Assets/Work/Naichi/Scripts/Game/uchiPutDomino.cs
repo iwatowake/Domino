@@ -7,7 +7,9 @@ public class uchiPutDomino : MonoBehaviour
 	public GameObject DominoPrefab;
 
 	// クリックした位置座標
+	private GameObject firstDomino;
 	private GameObject lastDomino;
+	private bool isFirstDomino;
 	
 	//domino to domino distance.
 	private float DominoInterval = 0.02f;
@@ -26,9 +28,13 @@ public class uchiPutDomino : MonoBehaviour
 				var target = new Vector3 (hit.point.x, hit.point.y, hit.point.z); 
 
 				//first Domino
-				if (lastDomino == null) {
+				if (firstDomino == null) {
 					GameObject domino = (GameObject)Instantiate (DominoPrefab, target, Quaternion.identity);
+					domino.transform.Rotate (new Vector3 (0, 180, 0));
+					domino.rigidbody.isKinematic = true;
+					this.firstDomino = domino;
 					this.lastDomino = domino;
+					this.isFirstDomino = true;
 				}
 				
 				//last domino to click pos.
@@ -41,7 +47,21 @@ public class uchiPutDomino : MonoBehaviour
 				if (heading.sqrMagnitude < DominoInterval * DominoInterval) {
 					//click pos is too nearly.
 				} else {
-							
+					if (this.isFirstDomino) {					
+					
+						Vector3 relativef = firstDomino.transform.InverseTransformPoint (target);
+						float anglef = Mathf.Atan2 (relativef.x, relativef.z);// * Mathf.Rad2Deg;					
+						anglef = anglef < 0f ? anglef + Mathf.PI * 2 : anglef;
+						anglef -= Mathf.PI;
+						float anglef2 = anglef * Mathf.Rad2Deg;
+						
+						this.firstDomino.transform.Rotate (new Vector3 (0, anglef2, 0));
+						
+						Debug.Log (anglef2);
+						this.isFirstDomino = false;
+					}
+					
+					
 				
 					var distance = heading.magnitude;
 					var direction = heading / distance;
