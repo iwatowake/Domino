@@ -17,7 +17,7 @@ public class UI_Game : MonoBehaviour {
 		}
 	}
 
-	public	UI_CollectionInfo	uiNorma;
+	public	UI_NormaInfo		uiNorma;
 	public	UI_CollectionInfo	uiCollection;
 	public	UI_Time				uiTime;
 	public	UI_Score			uiScore;
@@ -32,9 +32,16 @@ public class UI_Game : MonoBehaviour {
 	/// <summary>
 	/// 目標アイテムをUIに表示する
 	/// </summary>
-	public void SetNormaItems()
+	/// <param name="kind1">アイテム1</param>
+	/// <param name="kind2">アイテム2</param>
+	/// <param name="kind3">アイテム3</param>
+	public void SetNormaItems(ItemDefinition.ItemKind kind1, 
+	                          ItemDefinition.ItemKind kind2, 
+	                          ItemDefinition.ItemKind kind3)
 	{
-
+		uiNorma.SetItem (kind1, 0);
+		uiNorma.SetItem (kind2, 1);
+		uiNorma.SetItem (kind3, 2);
 	}
 
 	/// <summary>
@@ -42,7 +49,7 @@ public class UI_Game : MonoBehaviour {
 	/// </summary>
 	public void SetCollectedItems(ItemDefinition.ItemKind kind,int count)
 	{
-		
+		uiCollection.SetItem (kind, count);
 	}
 
 	/// <summary>
@@ -107,6 +114,8 @@ public class UI_Game : MonoBehaviour {
 
 	void Update()
 	{
-
+		if (Input.GetKeyDown (KeyCode.A)) {
+			SetNormaItems(ItemDefinition.ItemKind.Bag, ItemDefinition.ItemKind.CellPhone, ItemDefinition.ItemKind.None);
+		}
 	}
 }

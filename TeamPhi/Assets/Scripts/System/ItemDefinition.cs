@@ -10,6 +10,8 @@ public class ItemDefinition : MonoBehaviour
 		Ribbon,
 		Pen ,
 		CellPhone,
+
+		None
 	}
 	
 	public static int ScoreByItem (ItemKind kind)
@@ -33,19 +35,21 @@ public class ItemDefinition : MonoBehaviour
 	{
 		switch (kind) {
 		case ItemKind.Note:
-			return "Sprites/Note";
+			return "Sprites/yshTestSprite";
 		case ItemKind.Pen:
-			return "Sprites/Pen";
+			return "Sprites/yshTestSprite";
 		case ItemKind.Bag:
-			return "Sprites/Bag";
+			return "Sprites/yshTestSprite";
 		case ItemKind.Ribbon:
-			return "Sprites/Ribbon";
+			return "Sprites/yshTestSprite";
 		case ItemKind.CellPhone:
-			return "Sprites/CellPhone";
+			return "Sprites/yshTestSprite";
+
+		case ItemKind.None:
+			return "Sprites/yshTestSprite";
 
 		default:
-			Debug.LogError("ItemDifinition.GetItemIconPath():Unknown item ID.");
-			return "";
+			throw new System.NotImplementedException ();
 		}
 	}
 }
