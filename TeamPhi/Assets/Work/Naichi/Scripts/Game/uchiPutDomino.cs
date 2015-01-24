@@ -11,9 +11,14 @@ public class uchiPutDomino : MonoBehaviour
 	private GameObject lastDomino;
 	private bool isFirstDomino;
 	
+	
 	//domino to domino distance.
 	private float DominoInterval = 0.02f;
 	private float maxRadian = 30.0f * Mathf.Deg2Rad;	
+	
+	private float timeInterval = 0.05f;
+	private float lastPutted = 0;
+		
 	void Start ()
 	{
 	}
@@ -21,6 +26,12 @@ public class uchiPutDomino : MonoBehaviour
 	void Update ()
 	{
 		if (Input.GetMouseButton (0)) {		
+	
+			if (lastPutted + timeInterval > Time.time) {
+				return;
+			}
+			lastPutted = Time.time;
+			
 		
 			Ray ray = Camera.main.ScreenPointToRay (Input.mousePosition);
 			RaycastHit hit;
