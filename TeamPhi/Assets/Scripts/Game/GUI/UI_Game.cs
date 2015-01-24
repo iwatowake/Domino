@@ -17,27 +17,39 @@ public class UI_Game : MonoBehaviour {
 		}
 	}
 
-	public	UI_CollectionInfo	uiNorma;
+	public	UI_NormaInfo		uiNorma;
 	public	UI_CollectionInfo	uiCollection;
 	public	UI_Time				uiTime;
 	public	UI_Score			uiScore;
 	public	UI_TouchCount		uiTouchCount;
 	public	UI_FollowGauge		uiDominoGauge;
 
-	/// <summary>
-	/// 目標アイテムをUIに表示する
-	/// </summary>
-	public void SetNormaItems()
+	void Start()
 	{
 
 	}
 
 	/// <summary>
+	/// 目標アイテムをUIに表示する
+	/// </summary>
+	/// <param name="kind1">アイテム1</param>
+	/// <param name="kind2">アイテム2</param>
+	/// <param name="kind3">アイテム3</param>
+	public void SetNormaItems(ItemDefinition.ItemKind kind1, 
+	                          ItemDefinition.ItemKind kind2, 
+	                          ItemDefinition.ItemKind kind3)
+	{
+		uiNorma.SetItem (kind1, 0);
+		uiNorma.SetItem (kind2, 1);
+		uiNorma.SetItem (kind3, 2);
+	}
+
+	/// <summary>
 	/// 今まで集めたアイテムをUIに表示する
 	/// </summary>
-	public void SetCollectedItems()
+	public void SetCollectedItems(ItemDefinition.ItemKind kind,int count)
 	{
-
+		uiCollection.SetItem (kind, count);
 	}
 
 	/// <summary>
@@ -103,36 +115,7 @@ public class UI_Game : MonoBehaviour {
 	void Update()
 	{
 		if (Input.GetKeyDown (KeyCode.A)) {
-			SetActionCount(0,3);
-		}
-
-		if (Input.GetKeyDown (KeyCode.S)) {
-			SetCollectedItems();
-		}
-
-		if (Input.GetKeyDown (KeyCode.D)) {
-			SetLimitGaugeAmount(0.5f);
-		}
-
-		if (Input.GetKeyDown (KeyCode.F)) {
-			SetNormaItems();
-		}
-
-		if (Input.GetKeyDown (KeyCode.G)) {
-			SetScore(12345);
-		}
-
-		if (Input.GetKeyDown (KeyCode.H)) {
-			SetTime(128.5f);
-		}
-
-		if (Input.GetMouseButtonDown (0)) {
-			SetLimitGaugeAmount(1.0f);
-			SetLimitGaugeVisible(true);
-		}
-
-		if (Input.GetMouseButtonUp (0)) {
-			SetLimitGaugeVisible(false);
+			SetNormaItems(ItemDefinition.ItemKind.Bag, ItemDefinition.ItemKind.CellPhone, ItemDefinition.ItemKind.None);
 		}
 	}
 }
