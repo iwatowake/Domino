@@ -19,8 +19,16 @@ public class uchiPutDomino : MonoBehaviour
 	private float timeInterval = 0.05f;
 	private float lastPutted = 0;
 		
+	private bool isPressing;
+
 	void Start ()
 	{
+		this.isPressing = false;
+	}
+	
+	void reset ()
+	{
+	
 	}
 		
 	void Update ()
@@ -41,8 +49,8 @@ public class uchiPutDomino : MonoBehaviour
 				//first Domino
 				if (firstDomino == null) {
 					GameObject domino = (GameObject)Instantiate (DominoPrefab, target, Quaternion.identity);
+//					domino.rigidbody.isKinematic = true;
 					domino.transform.Rotate (new Vector3 (0, 180, 0));
-					domino.rigidbody.isKinematic = true;
 					this.firstDomino = domino;
 					this.lastDomino = domino;
 					this.isFirstDomino = true;
@@ -52,7 +60,6 @@ public class uchiPutDomino : MonoBehaviour
 				var heading = target - this.lastDomino.transform.position;
 				// ignore height.
 				heading.y = 0;
-
 				
 				//check last to click distance
 				if (heading.sqrMagnitude < DominoInterval * DominoInterval) {
@@ -65,8 +72,13 @@ public class uchiPutDomino : MonoBehaviour
 						anglef = anglef < 0f ? anglef + Mathf.PI * 2 : anglef;
 						anglef -= Mathf.PI;
 						float anglef2 = anglef * Mathf.Rad2Deg;
+						this.firstDomino.transform.Rotate (new Vector3 (0, anglef2, 0));			
 						
-						this.firstDomino.transform.Rotate (new Vector3 (0, anglef2, 0));
+						Vector3 now = this.firstDomino.transform.localRotation.eulerAngles;
+						now.x -= 10;
+						this.firstDomino.transform .localRotation = Quaternion.Euler (now);
+						
+						
 						
 						Debug.Log (anglef2);
 						this.isFirstDomino = false;
