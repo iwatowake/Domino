@@ -24,6 +24,11 @@ public class UI_Game : MonoBehaviour {
 	public	UI_TouchCount		uiTouchCount;
 	public	UI_FollowGauge		uiDominoGauge;
 
+	void Start()
+	{
+
+	}
+
 	/// <summary>
 	/// 目標アイテムをUIに表示する
 	/// </summary>
