@@ -16,7 +16,7 @@ public class uchiPutDomino : MonoBehaviour
 	private float DominoInterval = 0.02f;
 	private float maxRadian = 30.0f * Mathf.Deg2Rad;	
 	
-	private float timeInterval = 0.05f;
+	private float timeInterval = 0.03f;
 	private float lastPutted = 0;
 		
 	private bool isPressing;
@@ -84,19 +84,19 @@ public class uchiPutDomino : MonoBehaviour
 					//click pos is too nearly.
 				} else {
 					if (this.isFirstDomino) {					
-					
-						this.firstDomino.rigidbody.isKinematic = true;
 						Vector3 relativef = firstDomino.transform.InverseTransformPoint (target);
 						float anglef = Mathf.Atan2 (relativef.x, relativef.z);// * Mathf.Rad2Deg;					
 						anglef = anglef < 0f ? anglef + Mathf.PI * 2 : anglef;
 						anglef -= Mathf.PI; 
 						float anglef2 = anglef * Mathf.Rad2Deg;
-						this.firstDomino.transform.Rotate (new Vector3 (0, anglef2, 0));			
 						
-						this.firstDomino.rigidbody.isKinematic = false;
+						Vector3 now = this.firstDomino.transform.localRotation.eulerAngles;
+						now.y += anglef2;
+						this.firstDomino.transform .localRotation = Quaternion.Euler (now);
 						
-						Debug.Log (anglef2);
 						this.isFirstDomino = false;
+						
+						return;
 					}
 					
 					
@@ -139,9 +139,6 @@ public class uchiPutDomino : MonoBehaviour
 			}
 		} else {
 			if (isPressing) {
-				//hanasareta
-				Debug.Log ("released");
-				
 				Vector3 now = this.firstDomino.transform.localRotation.eulerAngles;
 				now.x -= 20;
 				this.firstDomino.transform .localRotation = Quaternion.Euler (now);

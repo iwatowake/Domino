@@ -11,9 +11,12 @@ public class uchiDominoGenerator_Straight : MonoBehaviour
 	void Start ()
 	{
 		for (int i = 0; i<100; i++) {
-			Instantiate (this.domino, new Vector3 (this.start.x + this.offset.x * i
+			Instantiate (this.domino
+			, new Vector3 (
+			this.start.x + this.offset.x * i
 			                                       , this.start.y + this.offset.y * i
-			                                       , this.start.z + this.offset.z * i), Quaternion.identity
+			                                       , this.start.z + this.offset.z * i)
+			                                       , Quaternion.identity
 			);
 		}
 	}
