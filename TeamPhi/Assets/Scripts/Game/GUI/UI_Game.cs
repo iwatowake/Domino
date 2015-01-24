@@ -35,9 +35,9 @@ public class UI_Game : MonoBehaviour {
 	/// <summary>
 	/// 今まで集めたアイテムをUIに表示する
 	/// </summary>
-	public void SetCollectedItems()
+	public void SetCollectedItems(ItemDefinition.ItemKind kind,int count)
 	{
-
+		
 	}
 
 	/// <summary>
@@ -102,37 +102,6 @@ public class UI_Game : MonoBehaviour {
 
 	void Update()
 	{
-		if (Input.GetKeyDown (KeyCode.A)) {
-			SetActionCount(0,3);
-		}
 
-		if (Input.GetKeyDown (KeyCode.S)) {
-			SetCollectedItems();
-		}
-
-		if (Input.GetKeyDown (KeyCode.D)) {
-			SetLimitGaugeAmount(0.5f);
-		}
-
-		if (Input.GetKeyDown (KeyCode.F)) {
-			SetNormaItems();
-		}
-
-		if (Input.GetKeyDown (KeyCode.G)) {
-			SetScore(12345);
-		}
-
-		if (Input.GetKeyDown (KeyCode.H)) {
-			SetTime(128.5f);
-		}
-
-		if (Input.GetMouseButtonDown (0)) {
-			SetLimitGaugeAmount(1.0f);
-			SetLimitGaugeVisible(true);
-		}
-
-		if (Input.GetMouseButtonUp (0)) {
-			SetLimitGaugeVisible(false);
-		}
 	}
 }
