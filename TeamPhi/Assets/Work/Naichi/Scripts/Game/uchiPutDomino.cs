@@ -23,17 +23,35 @@ public class uchiPutDomino : MonoBehaviour
 
 	void Start ()
 	{
-		this.isPressing = false;
+		this.reset ();
 	}
 	
+	void OnGUI ()
+	{
+		if (GUI.Button (new Rect (10, 10, 60, 20), "Reset")) {
+			this.reset ();
+		}
+	}
+		
 	void reset ()
 	{
-	
-	}
+		this.firstDomino = null;
+		this.lastDomino = null;
+		this.isFirstDomino = true;
+		this.isPressing = false;
+		
+		foreach (var domino in	GameObject.FindGameObjectsWithTag("DOMINO")) {
+			Destroy (domino);
+		}
+	} 
 		
 	void Update ()
 	{
+	
+	
 		if (Input.GetMouseButton (0)) {		
+
+			this.isPressing = true;
 	
 			if (lastPutted + timeInterval > Time.time) {
 				return;
@@ -49,7 +67,6 @@ public class uchiPutDomino : MonoBehaviour
 				//first Domino
 				if (firstDomino == null) {
 					GameObject domino = (GameObject)Instantiate (DominoPrefab, target, Quaternion.identity);
-//					domino.rigidbody.isKinematic = true;
 					domino.transform.Rotate (new Vector3 (0, 180, 0));
 					this.firstDomino = domino;
 					this.lastDomino = domino;
@@ -67,18 +84,15 @@ public class uchiPutDomino : MonoBehaviour
 				} else {
 					if (this.isFirstDomino) {					
 					
+						this.firstDomino.rigidbody.isKinematic = true;
 						Vector3 relativef = firstDomino.transform.InverseTransformPoint (target);
 						float anglef = Mathf.Atan2 (relativef.x, relativef.z);// * Mathf.Rad2Deg;					
 						anglef = anglef < 0f ? anglef + Mathf.PI * 2 : anglef;
-						anglef -= Mathf.PI;
+						anglef -= Mathf.PI; 
 						float anglef2 = anglef * Mathf.Rad2Deg;
 						this.firstDomino.transform.Rotate (new Vector3 (0, anglef2, 0));			
 						
-						Vector3 now = this.firstDomino.transform.localRotation.eulerAngles;
-						now.x -= 10;
-						this.firstDomino.transform .localRotation = Quaternion.Euler (now);
-						
-						
+						this.firstDomino.rigidbody.isKinematic = false;
 						
 						Debug.Log (anglef2);
 						this.isFirstDomino = false;
@@ -127,6 +141,19 @@ public class uchiPutDomino : MonoBehaviour
 				}
 
 			}
+		} else {
+			if (isPressing) {
+				//hanasareta
+				Debug.Log ("released");
+				
+				Vector3 now = this.firstDomino.transform.localRotation.eulerAngles;
+				now.x -= 20;
+				this.firstDomino.transform .localRotation = Quaternion.Euler (now);
+				
+				this.isPressing = false;
+			}
+			
+			
 		}
 		
 	}
