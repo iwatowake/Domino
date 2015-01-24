@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System;
 
-public class Stage_manager : SingletonMonoBehaviour<Stage_manager>
+public class Stage_Manager : SingletonMonoBehaviour<Stage_Manager>
 {
 	
 
@@ -34,6 +34,14 @@ public class Stage_manager : SingletonMonoBehaviour<Stage_manager>
 		this.Reset ();
 	}
 	
+	public void OnGUI ()
+	{
+		if (GUI.Button (new Rect (10, 10, 200, 100), "Test")) {
+		
+			var gameManager = GameObject.FindObjectOfType<Game_Manager> ();
+			gameManager.StageClear ();
+		}
+	}
 	
 	public void Reset ()
 	{

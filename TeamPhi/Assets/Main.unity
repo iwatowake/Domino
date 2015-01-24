@@ -322,6 +322,10 @@ Prefab:
       propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 146926, guid: 3b6d77aff2c07e64bad9e4b84cb684a7, type: 2}
+      propertyPath: m_TagString
+      value: MainCamera
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 3b6d77aff2c07e64bad9e4b84cb684a7, type: 2}
   m_RootGameObject: {fileID: 104885285}
@@ -338,7 +342,7 @@ GameObject:
   - 20: {fileID: 1654327363}
   m_Layer: 31
   m_Name: Camra
-  m_TagString: Untagged
+  m_TagString: MainCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

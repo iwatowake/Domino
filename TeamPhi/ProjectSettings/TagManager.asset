@@ -6,6 +6,7 @@ TagManager:
   - 
   - GUICam
   - DOMINO
+  - STAGE_CAMERA
   - 
   Builtin Layer 0: Default
   Builtin Layer 1: TransparentFX

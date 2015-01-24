@@ -3,6 +3,7 @@ using System.Collections;
 
 public class uchiPutDomino : MonoBehaviour
 {
+	private Camera stageCamera;
 	// 生成したいPrefab
 	public GameObject DominoPrefab;
 
@@ -23,6 +24,11 @@ public class uchiPutDomino : MonoBehaviour
 
 	void Start ()
 	{
+		GameObject go = ((GameObject)GameObject.FindGameObjectWithTag ("STAGE_CAMERA"));
+		Debug.Log ("go" + go);
+		this.stageCamera = go.GetComponent<Camera> ();
+		Debug.Log ("cm" + stageCamera);
+	
 		this.reset ();
 	}
 	
@@ -60,7 +66,7 @@ public class uchiPutDomino : MonoBehaviour
 			lastPutted = Time.time;
 			
 		
-			Ray ray = Camera.main.ScreenPointToRay (Input.mousePosition);
+			Ray ray = this.stageCamera.ScreenPointToRay (Input.mousePosition);
 			RaycastHit hit;
 			if (Physics.Raycast (ray, out hit, Mathf.Infinity)) {
 				var target = new Vector3 (hit.point.x, hit.point.y, hit.point.z); 
