@@ -112,10 +112,12 @@ public class UI_Game : MonoBehaviour {
 		uiDominoGauge.SetVisible (visible);
 	}
 
-	void Update()
+	/// <summary>
+	/// 全UIの表示/非表示を切り替える
+	/// </summary>
+	/// <param name="visible"><c>true</c> なら表示</param>
+	public void SetAllUIVisible(bool visible)
 	{
-		if (Input.GetKeyDown (KeyCode.A)) {
-			SetNormaItems(ItemDefinition.ItemKind.Bag, ItemDefinition.ItemKind.CellPhone, ItemDefinition.ItemKind.None);
-		}
+		GetComponentInChildren<Canvas> ().enabled = visible;
 	}
 }
