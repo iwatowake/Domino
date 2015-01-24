@@ -189,6 +189,11 @@ public class Stage_Manager : SingletonMonoBehaviour<Stage_Manager>
 	
 	public void MoveCamera (GameObject domino)
 	{
+		if (this.stageCamera == null) {
+			Debug.Log ("Camera is NULL!!!");
+			return;
+		}
+	
 		if (domino.transform.position.z > this.stageCamera.transform.position.z) {
 			this.cameraTarget = new Vector3 (
 				this.stageCamera.transform.position.x
