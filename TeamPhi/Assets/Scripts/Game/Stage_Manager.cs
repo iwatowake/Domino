@@ -5,13 +5,6 @@ using System;
 
 public class Stage_manager : SingletonMonoBehaviour<Stage_manager>
 {
-	public enum ItemKind
-	{
-		Note,
-		Bag,
-		Ribbon,
-		Pen ,
-	}
 	
 
 	const int MAX_BALL = 10;
@@ -21,26 +14,11 @@ public class Stage_manager : SingletonMonoBehaviour<Stage_manager>
 	
 	
 	private List<StageResult> StageResults;
-	private List<ItemKind> CollectItems;
+	private List<ItemDefinition.ItemKind> CollectItems;
 	private int CollectStarCount;
 	
 	
 	private StageResult CurrentStage;
-	
-	public static int ScoreByItem (ItemKind kind)
-	{
-		switch (kind) {
-		case ItemKind.Note:
-		case ItemKind.Pen:
-			return 300;
-		case ItemKind.Bag:
-			return 800;
-		case ItemKind.Ribbon:
-			return 1200;
-		default:
-			throw new System.NotImplementedException ();
-		}
-	}
 	
 	public void Awake ()
 	{
@@ -51,7 +29,7 @@ public class Stage_manager : SingletonMonoBehaviour<Stage_manager>
 		
 		DontDestroyOnLoad (this.gameObject);
 		
-		this.CollectItems = new List<ItemKind> ();
+		this.CollectItems = new List<ItemDefinition.ItemKind> ();
 		this.StageResults = new  List<StageResult> ();
 		this.Reset ();
 	}
@@ -86,7 +64,7 @@ public class Stage_manager : SingletonMonoBehaviour<Stage_manager>
 	
 	public int TotalScore {
 		get {
-			int itemBonus = this.CollectItems.Sum (k => ScoreByItem (k));
+			int itemBonus = this.CollectItems.Sum (k => ItemDefinition.ScoreByItem (k));
 			int remainingBallBonus = this.StageResults.Sum (s => s.RemainBall * POINT_OF_REMAINING_BALL); 
 			
 			return this.Score + itemBonus + remainingBallBonus;
@@ -95,7 +73,7 @@ public class Stage_manager : SingletonMonoBehaviour<Stage_manager>
 	
 
 		
-	public void AddItem (ItemKind kind)
+	public void AddItem (ItemDefinition.ItemKind kind)
 	{
 		this.CollectItems.Add (kind);
 		this.DrawItemUI ();
@@ -112,7 +90,7 @@ public class Stage_manager : SingletonMonoBehaviour<Stage_manager>
 	private void DrawItemUI ()
 	{
 		//Items
-		foreach (ItemKind kind in Enum.GetValues(typeof(ItemKind))) {		
+		foreach (ItemDefinition.ItemKind kind in Enum.GetValues(typeof(ItemDefinition.ItemKind))) {		
 			// call UI draw method
 			// hoge.SetItemUI(kind, GetItemCount(kind));
 		}
@@ -139,7 +117,7 @@ public class Stage_manager : SingletonMonoBehaviour<Stage_manager>
 	}
 
 		
-	private int GetItemCount (ItemKind kind)
+	private int GetItemCount (ItemDefinition.ItemKind kind)
 	{
 		return  this.CollectItems.Count (k => k == kind);
 	}
