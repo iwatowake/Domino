@@ -12,7 +12,7 @@ GameObject:
   - 199: {fileID: 19930054}
   - 114: {fileID: 11483144}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: particle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
