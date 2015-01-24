@@ -45,6 +45,13 @@ public class Stage_Manager : SingletonMonoBehaviour<Stage_Manager>
 	
 	public void Update ()
 	{
+		if (this.stageCamera == null) {	
+			GameObject go = ((GameObject)GameObject.FindGameObjectWithTag ("STAGE_CAMERA"));
+			Debug.Log ("go" + go);
+			this.stageCamera = go.GetComponent<Camera> ();
+			Debug.Log ("cm" + stageCamera);
+		}
+		
 		if (this.stageCamera != null) {
 			this.stageCamera.transform.position = new Vector3 (
 				this.stageCamera.transform.position.x,

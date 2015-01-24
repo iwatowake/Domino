@@ -52,8 +52,6 @@ public class uchiPutDomino : MonoBehaviour
 			this.stageCamera = go.GetComponent<Camera> ();
 			Debug.Log ("cm" + stageCamera);
 		}
-		
-		
 	
 	
 		if (Input.GetKeyDown (KeyCode.R)) {
