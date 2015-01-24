@@ -28,9 +28,6 @@ public class uchiPutDomino : MonoBehaviour
 	
 	void OnGUI ()
 	{
-		if (GUI.Button (new Rect (10, 10, 60, 20), "Reset")) {
-			this.reset ();
-		}
 	}
 		
 	void reset ()
@@ -47,6 +44,10 @@ public class uchiPutDomino : MonoBehaviour
 		
 	void Update ()
 	{
+	
+		if (Input.GetKeyDown (KeyCode.R)) {
+			this.reset ();
+		}
 	
 	
 		if (Input.GetMouseButton (0)) {		
@@ -122,13 +123,8 @@ public class uchiPutDomino : MonoBehaviour
 
 					float newAngle = lastAngle2 + angle2;
 
-//					Debug.Log (lastAngle2.ToString ("#.#") + " + " + angle2.ToString ("#.#") + " = " + newAngle.ToString ("#.#"));
-					
-					
 					Vector3 move = new Vector3 (Mathf.Sin (newAngle * Mathf.Deg2Rad) * DominoInterval, 0f, Mathf.Cos (newAngle * Mathf.Deg2Rad) * DominoInterval);					
 
-//					Debug.Log (move * 100);
-							
 					Vector3 newPos = new Vector3 (
 					 lastDomino.transform.position.x - move.x
 					 , 0
