@@ -5,7 +5,7 @@ using System;
 
 public class Stage_Manager : SingletonMonoBehaviour<Stage_Manager>
 {
-	
+	Camera stageCamera;
 
 	const int MAX_BALL = 10;
 	const int MAX_DOMINO = 20;
@@ -43,6 +43,17 @@ public class Stage_Manager : SingletonMonoBehaviour<Stage_Manager>
 		}
 	}
 	
+	public void Update ()
+	{
+		if (this.stageCamera != null) {
+			this.stageCamera.transform.position = new Vector3 (
+				this.stageCamera.transform.position.x,
+				this.stageCamera.transform.position.y,
+				Mathf.Lerp (this.stageCamera.transform.position.z, this.cameraTarget.z, 0.3f)
+			);
+		}
+	}
+	
 	public void Reset ()
 	{
 		this.StageResults.Clear ();
@@ -58,6 +69,9 @@ public class Stage_Manager : SingletonMonoBehaviour<Stage_Manager>
 			this.CurrentStage = null;
 		}
 		
+		var go = GameObject.FindGameObjectWithTag ("STAGE_CAMERA");
+		this.stageCamera = go.GetComponent<Camera> ();
+		Debug.Log ("Camera : " + this.stageCamera);
 		this.CurrentStage = new StageResult (ballCount);
 	}
 
@@ -83,7 +97,10 @@ public class Stage_Manager : SingletonMonoBehaviour<Stage_Manager>
 		
 	public void AddItem (ItemDefinition.ItemKind kind)
 	{
+		Debug.Log ("Get Item " + kind.ToString ());
+
 		this.CollectItems.Add (kind);
+		
 		this.DrawItemUI ();
 	}
 	
@@ -130,8 +147,6 @@ public class Stage_Manager : SingletonMonoBehaviour<Stage_Manager>
 		return  this.CollectItems.Count (k => k == kind);
 	}
 	
-
-
 	
 	public class StageResult
 	{
@@ -168,5 +183,20 @@ public class Stage_Manager : SingletonMonoBehaviour<Stage_Manager>
 		
 		
 	}
+	
+	
+	private Vector3 cameraTarget;
+	
+	public void MoveCamera (GameObject domino)
+	{
+		if (domino.transform.position.z > this.stageCamera.transform.position.z) {
+			this.cameraTarget = new Vector3 (
+				this.stageCamera.transform.position.x
+				, this.stageCamera.transform.position.y
+				, domino.transform.position.z);
+		}
+	}
+	
+	
 	
 }

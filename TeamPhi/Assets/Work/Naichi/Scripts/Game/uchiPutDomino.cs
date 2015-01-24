@@ -24,10 +24,6 @@ public class uchiPutDomino : MonoBehaviour
 
 	void Start ()
 	{
-		GameObject go = ((GameObject)GameObject.FindGameObjectWithTag ("STAGE_CAMERA"));
-		Debug.Log ("go" + go);
-		this.stageCamera = go.GetComponent<Camera> ();
-		Debug.Log ("cm" + stageCamera);
 	
 		this.reset ();
 	}
@@ -50,6 +46,15 @@ public class uchiPutDomino : MonoBehaviour
 		
 	void Update ()
 	{
+		if (this.stageCamera == null) {	
+			GameObject go = ((GameObject)GameObject.FindGameObjectWithTag ("STAGE_CAMERA"));
+			Debug.Log ("go" + go);
+			this.stageCamera = go.GetComponent<Camera> ();
+			Debug.Log ("cm" + stageCamera);
+		}
+		
+		
+	
 	
 		if (Input.GetKeyDown (KeyCode.R)) {
 			this.reset ();
@@ -59,6 +64,12 @@ public class uchiPutDomino : MonoBehaviour
 		if (Input.GetMouseButton (0)) {		
 
 			this.isPressing = true;
+			 
+			foreach (GameObject item in GameObject.FindGameObjectsWithTag("ITEM")) {
+				item.rigidbody.isKinematic = true;
+			}
+			 
+			 
 	
 			if (lastPutted + timeInterval > Time.time) {
 				return;
@@ -145,15 +156,22 @@ public class uchiPutDomino : MonoBehaviour
 			}
 		} else {
 			if (isPressing) {
+				foreach (GameObject item in GameObject.FindGameObjectsWithTag("ITEM")) {
+					item.rigidbody.isKinematic = false;
+				}
+				
 				Vector3 now = this.firstDomino.transform.localRotation.eulerAngles;
 				now.x -= 20;
 				this.firstDomino.transform .localRotation = Quaternion.Euler (now);
 				
 				this.isPressing = false;
+				
+				
 			}
 			
 			
 		}
 		
 	}
+	
 }

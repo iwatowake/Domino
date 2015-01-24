@@ -20,4 +20,12 @@ public class uchiDomino : MonoBehaviour
 	{
 		this.rigidbody.WakeUp ();
 	}
+	
+	void OnCollisionEnter (Collision collision)
+	{
+		if (collision.gameObject.tag == "DOMINO") {
+			Stage_Manager.Instance.MoveCamera (this.gameObject);
+		}
+	}
+	
 }

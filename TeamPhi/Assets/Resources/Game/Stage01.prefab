@@ -70,22 +70,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!1 &125858
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 4
-  m_Component:
-  - 4: {fileID: 425858}
-  - 114: {fileID: 11425852}
-  m_Layer: 0
-  m_Name: StageManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
 --- !u!1 &125860
 GameObject:
   m_ObjectHideFlags: 0
@@ -129,7 +113,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 425860}
-  m_RootOrder: 5
+  m_RootOrder: 4
 --- !u!4 &425852
 Transform:
   m_ObjectHideFlags: 1
@@ -141,7 +125,7 @@ Transform:
   m_LocalScale: {x: .300000012, y: 1, z: .300000012}
   m_Children: []
   m_Father: {fileID: 425860}
-  m_RootOrder: 1
+  m_RootOrder: 0
 --- !u!4 &425854
 Transform:
   m_ObjectHideFlags: 1
@@ -153,7 +137,7 @@ Transform:
   m_LocalScale: {x: .400000006, y: 1, z: .800000012}
   m_Children: []
   m_Father: {fileID: 425860}
-  m_RootOrder: 2
+  m_RootOrder: 1
 --- !u!4 &425856
 Transform:
   m_ObjectHideFlags: 1
@@ -165,19 +149,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 425860}
-  m_RootOrder: 3
---- !u!4 &425858
-Transform:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 125858}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -512}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 425860}
-  m_RootOrder: 0
+  m_RootOrder: 2
 --- !u!4 &425860
 Transform:
   m_ObjectHideFlags: 1
@@ -188,7 +160,6 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 425858}
   - {fileID: 425852}
   - {fileID: 425854}
   - {fileID: 425856}
@@ -207,7 +178,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 425860}
-  m_RootOrder: 4
+  m_RootOrder: 3
 --- !u!20 &2025850
 Camera:
   m_ObjectHideFlags: 1
@@ -302,7 +273,7 @@ MeshCollider:
   m_GameObject: {fileID: 125852}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_SmoothSphereCollisions: 0
   m_Convex: 0
@@ -373,17 +344,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   DominoPrefab: {fileID: 106240, guid: 1b764443c307f4c928907374d5347c82, type: 2}
---- !u!114 &11425852
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 125858}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 87b193125e07345389c29eb4ae04ecf0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &11425854
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -395,6 +355,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 009b8702732c1b7449a2d087440c554e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  StageManagerPrefab: {fileID: 192938, guid: 99456c654a1a3432abde6d9d9d27491f, type: 2}
 --- !u!124 &12425850
 Behaviour:
   m_ObjectHideFlags: 1
