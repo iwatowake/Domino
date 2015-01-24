@@ -5,11 +5,11 @@ public class ItemDefinition : MonoBehaviour
 {
 	public enum ItemKind
 	{
-		Note,
-		Bag,
-		Ribbon,
-		Pen ,
+		Bread,
+		TextBook,
 		CellPhone,
+		Skirt,
+		LipStick,
 
 		None
 	}
@@ -17,14 +17,14 @@ public class ItemDefinition : MonoBehaviour
 	public static int ScoreByItem (ItemKind kind)
 	{
 		switch (kind) {
-		case ItemKind.Note:
-		case ItemKind.Pen:
+		case ItemKind.Bread:
+		case ItemKind.TextBook:
 			return 300;
-		case ItemKind.Bag:
-			return 800;
-		case ItemKind.Ribbon:
-			return 1200;
 		case ItemKind.CellPhone:
+			return 800;
+		case ItemKind.Skirt:
+			return 1200;
+		case ItemKind.LipStick:
 			return 1500;
 		default:
 			throw new System.NotImplementedException ();
@@ -34,19 +34,19 @@ public class ItemDefinition : MonoBehaviour
 	public static string GetItemIconPath(ItemKind kind)
 	{
 		switch (kind) {
-		case ItemKind.Note:
-			return "Sprites/yshTestSprite";
-		case ItemKind.Pen:
-			return "Sprites/yshTestSprite";
-		case ItemKind.Bag:
-			return "Sprites/yshTestSprite";
-		case ItemKind.Ribbon:
-			return "Sprites/yshTestSprite";
+		case ItemKind.Bread:
+			return "Sprites/UI_Item_01";
+		case ItemKind.TextBook:
+			return "Sprites/UI_Item_02";
 		case ItemKind.CellPhone:
-			return "Sprites/yshTestSprite";
+			return "Sprites/UI_Item_03";
+		case ItemKind.Skirt:
+			return "Sprites/UI_Item_04";
+		case ItemKind.LipStick:
+			return "Sprites/UI_Item_05";
 
 		case ItemKind.None:
-			return "Sprites/yshTestSprite";
+			return "Sprites/UI_Item_00";
 
 		default:
 			throw new System.NotImplementedException ();
