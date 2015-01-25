@@ -21,7 +21,11 @@ public class uchiItem : MonoBehaviour
 		
 		if (this.transform.position.y <= -1) {
 			this.rigidbody.isKinematic = true;  
+			
 			Stage_Manager.Instance.AddItem (this.ItemKind);
+			
+			GameObject.FindGameObjectWithTag ("STAGE").GetComponent<StageInfo> ().StageClear ();
+			
 			Destroy (this.gameObject);
 		}
 		
