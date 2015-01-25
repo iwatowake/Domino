@@ -79,7 +79,7 @@ public class Stage_Manager : SingletonMonoBehaviour<Stage_Manager>
 					} else {
 						//gameover
 						
-						this.gameObject.GetComponent<StageInfo> ().StageClear ();
+						GameObject.FindGameObjectWithTag ("STAGE").GetComponent<StageInfo> ().StageClear ();
 						
 //						var gameManager = GameObject.FindObjectOfType<Game_Manager> ();
 //						gameManager.StageClear ();
@@ -90,6 +90,13 @@ public class Stage_Manager : SingletonMonoBehaviour<Stage_Manager>
 					Debug.Log ("NextShot");
 				}
 			}
+			
+			
+			this.DrawBallCountUI ();
+			this.DrawItemUI ();
+			this.DrawScoreUI ();
+			this.DrawStaminaUI ();
+			
 		}
 	}
 	

@@ -29,8 +29,13 @@ public class UI_CollectionInfo : MonoBehaviour
 
 	public void SetItem (ItemDefinition.ItemKind kind, int num)
 	{
-		mCollectedItemSlot [(int)kind].sprite = Resources.Load<Sprite> (ItemDefinition.GetItemIconPath (kind));
-		mCollectedItemSlot [(int)kind].GetComponentInChildren<Text> ().text = num.ToString ();
+		try {
+			mCollectedItemSlot [(int)kind].sprite = Resources.Load<Sprite> (ItemDefinition.GetItemIconPath (kind));
+			mCollectedItemSlot [(int)kind].GetComponentInChildren<Text> ().text = num.ToString ();
+			
+		} catch (System.Exception ex) {
+		
+		}
 	}
 
 }
