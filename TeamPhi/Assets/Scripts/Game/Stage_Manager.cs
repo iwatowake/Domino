@@ -7,7 +7,7 @@ public class Stage_Manager : SingletonMonoBehaviour<Stage_Manager>
 {
 	Camera stageCamera;
 
-	const int MAX_BALL = 10;
+	const int MAX_BALL = 8;
 	const int MAX_DOMINO = 20;
 	const int POINT_OF_STAR = 100;
 	const int POINT_OF_REMAINING_BALL = 1000;
@@ -80,14 +80,9 @@ public class Stage_Manager : SingletonMonoBehaviour<Stage_Manager>
 						this.CurrentStage.NextShot ();
 					} else {
 						//gameover
-						
-						this.cameraTarget = new Vector3 (
-							this.stageCamera.transform.position.x
-							, this.stageCamera.transform.position.y
-							, 0f);						
-						
-						GameObject.FindGameObjectWithTag ("STAGE").GetComponent<StageInfo> ().StageClear ();
-												
+
+						this.GameOver();
+
 //						var gameManager = GameObject.FindObjectOfType<Game_Manager> ();
 //						gameManager.StageClear ();
 					}
@@ -107,7 +102,19 @@ public class Stage_Manager : SingletonMonoBehaviour<Stage_Manager>
 			}
 		}
 	}
-	
+
+	public void GameOver()
+	{
+		
+		this.cameraTarget = new Vector3 (
+			this.stageCamera.transform.position.x
+			, this.stageCamera.transform.position.y
+			, 0f);						
+		
+		GameObject.FindGameObjectWithTag ("STAGE").GetComponent<StageInfo> ().StageClear ();
+
+	}
+
 	public void Reset ()
 	{
 	
@@ -194,7 +201,7 @@ public class Stage_Manager : SingletonMonoBehaviour<Stage_Manager>
 	{
 		int remainingBalls = CurrentStage == null ? 0 : CurrentStage.RemainBall;
 		
-		UI_Game.Instance.SetActionCount (remainingBalls);
+		UI_Game.Instance.SetActionCount (remainingBalls, MAX_BALL);
 		//call remaining ball UI draw method
 	}
 	
@@ -225,13 +232,13 @@ public class Stage_Manager : SingletonMonoBehaviour<Stage_Manager>
 			Debug.Log ("Camera is NULL!!!");
 			return;
 		}
-		
-		if (domino.transform.position.z > this.stageCamera.transform.position.z + 0.05f) {
+
+//		if (domino.transform.position.z > this.stageCamera.transform.position.z + 0.05f) {
 			this.cameraTarget = new Vector3 (
 				this.stageCamera.transform.position.x
 				, this.stageCamera.transform.position.y
 				, domino.transform.position.z + 0.05f);
-		}
+//		}
 		
 		lastDominoPoint = domino.transform.position;
 		Debug.Log ("LastDominoPosition : " + lastDominoPoint);

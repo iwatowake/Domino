@@ -24,8 +24,10 @@ public class uchiItem : MonoBehaviour
 			this.rigidbody.isKinematic = true;  
 			
 			Stage_Manager.Instance.AddItem (this.ItemKind);
-			
-			GameObject.FindGameObjectWithTag ("STAGE").GetComponent<StageInfo> ().StageClear ();
+
+			Stage_Manager.Instance.GameOver();
+
+//			GameObject.FindGameObjectWithTag ("STAGE").GetComponent<StageInfo> ().StageClear ();
 			
 			Destroy (this.gameObject);
 		}
