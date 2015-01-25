@@ -4,14 +4,17 @@ using UnityEngine.UI;
 
 public class UI_FollowGauge : UI_Gauge {
 
-	private RectTransform rectTransform;
+	public	Camera			referenceCamera;
+	private RectTransform 	rectTransform;
 
 	void Start(){
 		rectTransform = GetComponent<RectTransform> ();
 	}
 	
 	void Update () {
-		rectTransform.position = Input.mousePosition;
+		Vector3 pos = referenceCamera.ScreenToWorldPoint (Input.mousePosition);
+		pos.z = 0;
+		rectTransform.position = pos;
 	}
 
 }
