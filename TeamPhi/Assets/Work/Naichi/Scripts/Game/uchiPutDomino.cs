@@ -189,7 +189,7 @@ public class uchiPutDomino : MonoBehaviour
 				this.firstDomino.transform .localRotation = Quaternion.Euler (now);
 				
 				this.isPressing = false;
-//				UI_Game.Instance.SetLimitGaugeVisible (false);
+				UI_Game.Instance.SetLimitGaugeVisible (false);
 			}
 			
 			

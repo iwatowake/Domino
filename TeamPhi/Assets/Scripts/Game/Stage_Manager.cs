@@ -213,7 +213,7 @@ public class Stage_Manager : SingletonMonoBehaviour<Stage_Manager>
 			this.cameraTarget = new Vector3 (
 				this.stageCamera.transform.position.x
 				, this.stageCamera.transform.position.y
-				, domino.transform.position.z);
+				, domino.transform.position.z - 0.05f);
 		}
 	}
 	
