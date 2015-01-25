@@ -1247,7 +1247,7 @@ Renderer:
   m_LightmapIndex: 255
   m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
   m_Materials:
-  - {fileID: 2100000, guid: 86dfa5164fd3d5249b49fb2dbd48579d, type: 2}
+  - {fileID: 2100000, guid: 5b284d86dc90f4f4cbabb89441380c17, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 0
@@ -1786,7 +1786,7 @@ TextMesh:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 190720}
-  m_Text: MemberName
+  m_Text: Credit
   m_OffsetZ: 0
   m_CharacterSize: 2.6400001
   m_LineSpacing: 1
