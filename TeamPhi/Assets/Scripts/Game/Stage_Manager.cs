@@ -32,7 +32,7 @@ public class Stage_Manager : SingletonMonoBehaviour<Stage_Manager>
 	
 	public void OnGUI ()
 	{
-		if (GUI.Button (new Rect (10, 10, 100, 20), "Clear")) {
+		if (GUI.Button (new Rect (10, 10, 100, 20), "Stage Clear")) {
 		
 			var gameManager = GameObject.FindObjectOfType<Game_Manager> ();
 			gameManager.StageClear ();
@@ -65,7 +65,8 @@ public class Stage_Manager : SingletonMonoBehaviour<Stage_Manager>
 		this.StageResults.Clear ();
 		this.CollectItems.Clear ();
 		this.CollectStarCount = 0;
-		this.CurrentStage = null;
+		this.CurrentStage = null; 
+		this.StartStage (5);
 	}
 	
 	public void StartStage (int ballCount)
@@ -80,7 +81,7 @@ public class Stage_Manager : SingletonMonoBehaviour<Stage_Manager>
 		Debug.Log ("Camera : " + this.stageCamera);
 		this.CurrentStage = new StageResult (ballCount);
 		
-		this.DrawItemUI ();
+//		this.DrawItemUI ();
 	}
 	
 	// Exclude Item Bonus and Ball Bonus
