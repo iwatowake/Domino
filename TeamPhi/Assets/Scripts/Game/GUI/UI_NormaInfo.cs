@@ -27,8 +27,23 @@ public class UI_NormaInfo : MonoBehaviour {
 		mNormaItemSlot = GetComponentsInChildren<Image> ();
 	}
 	
-	public void SetItem(ItemDefinition.ItemKind kind, int index)
+	public void SetItemEnable(ItemDefinition.ItemKind kind)
 	{
-		mNormaItemSlot [index].sprite = Resources.Load<Sprite>(ItemDefinition.GetItemIconPath (kind));
+//		mNormaItemSlot [index].sprite = Resources.Load<Sprite>(ItemDefinition.GetItemIconPath (kind));
+		if ((int)kind < mNormaItemSlot.Length) {
+			mNormaItemSlot [(int)kind].color = Color.white;
+		}else{
+			Debug.LogError("Norma SetItem(): references out of range!");
+		}
+	}
+
+	public void SetNormaClearFromList(List<ItemDefinition.ItemKind> list)
+	{
+		foreach (ItemDefinition.ItemKind kind in list) {
+			if(kind != ItemDefinition.ItemKind.None)
+			{
+				SetItemEnable(kind);
+			}
+		}
 	}
 }

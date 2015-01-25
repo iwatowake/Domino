@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class UI_Game : MonoBehaviour {
 
@@ -18,7 +19,7 @@ public class UI_Game : MonoBehaviour {
 	}
 
 	public	UI_NormaInfo		uiNorma;
-	public	UI_CollectionInfo	uiCollection;
+//	public	UI_CollectionInfo	uiCollection;
 	public	UI_Time				uiTime;
 	public	UI_Score			uiScore;
 	public	UI_TouchCount		uiTouchCount;
@@ -26,7 +27,11 @@ public class UI_Game : MonoBehaviour {
 
 	void Start()
 	{
-
+		Stage_Manager stageManager = FindObjectOfType<Stage_Manager> ();
+		if (stageManager) {
+			SetNormaClearFromList (stageManager.GetColletItemList ());
+			SetScore (stageManager.Score);
+		}
 	}
 
 	/// <summary>
@@ -35,13 +40,23 @@ public class UI_Game : MonoBehaviour {
 	/// <param name="kind1">アイテム1</param>
 	/// <param name="kind2">アイテム2</param>
 	/// <param name="kind3">アイテム3</param>
-	public void SetNormaItems(ItemDefinition.ItemKind kind1, 
+/*	public void SetNormaItems(ItemDefinition.ItemKind kind1, 
 	                          ItemDefinition.ItemKind kind2, 
 	                          ItemDefinition.ItemKind kind3)
 	{
 		uiNorma.SetItem (kind1, 0);
 		uiNorma.SetItem (kind2, 1);
 		uiNorma.SetItem (kind3, 2);
+	}*/
+
+	public void SetNormaClearFromList(List<ItemDefinition.ItemKind> list)
+	{
+		uiNorma.SetNormaClearFromList (list);
+	}
+
+	public void SetNormaClear(ItemDefinition.ItemKind kind)
+	{
+		uiNorma.SetItemEnable (kind);
 	}
 
 	/// <summary>
@@ -49,7 +64,7 @@ public class UI_Game : MonoBehaviour {
 	/// </summary>
 	public void SetCollectedItems(ItemDefinition.ItemKind kind,int count)
 	{
-		uiCollection.SetItem (kind, count);
+//		uiCollection.SetItem (kind, count);
 	}
 
 	/// <summary>

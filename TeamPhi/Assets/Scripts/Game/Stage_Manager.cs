@@ -80,7 +80,7 @@ public class Stage_Manager : SingletonMonoBehaviour<Stage_Manager>
 		Debug.Log ("Camera : " + this.stageCamera);
 		this.CurrentStage = new StageResult (ballCount);
 		
-		this.DrawItemUI ();
+//		this.DrawItemUI ();
 	}
 	
 	// Exclude Item Bonus and Ball Bonus
@@ -122,9 +122,13 @@ public class Stage_Manager : SingletonMonoBehaviour<Stage_Manager>
 	private void DrawItemUI ()
 	{
 		//Items
+		// spoiled
+		/*
 		foreach (ItemDefinition.ItemKind kind in Enum.GetValues(typeof(ItemDefinition.ItemKind))) {	
 			UI_Game.Instance.SetCollectedItems (kind, GetItemCount (kind));
 		}
+		*/
+		UI_Game.Instance.SetNormaClearFromList (CollectItems);
 	}
 	
 	private void DrawScoreUI ()
@@ -217,6 +221,9 @@ public class Stage_Manager : SingletonMonoBehaviour<Stage_Manager>
 		}
 	}
 	
-	
-	
+	// 1/25 12:28 追加 kojima
+	public List<ItemDefinition.ItemKind> GetColletItemList()
+	{
+		return CollectItems;
+	}
 }
