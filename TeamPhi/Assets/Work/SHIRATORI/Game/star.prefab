@@ -208,10 +208,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 168100}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 56a6949d5a0fbb64ba6d35ba42929b80, type: 3}
+  m_Script: {fileID: 11500000, guid: 437376006a8d34adb9cf5a088f016199, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  particle: {fileID: 130054, guid: 9c4366fe74361af428539a093761078d, type: 2}
+  particle: {fileID: 130054, guid: b0183055b50a84560a727a1191e5f681, type: 2}
 --- !u!135 &13568100
 SphereCollider:
   m_ObjectHideFlags: 1

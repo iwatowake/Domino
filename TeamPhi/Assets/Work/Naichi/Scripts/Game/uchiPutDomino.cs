@@ -188,7 +188,8 @@ public class uchiPutDomino : MonoBehaviour
 				Vector3 now = this.firstDomino.transform.localRotation.eulerAngles;
 				now.x -= 20;
 				this.firstDomino.transform .localRotation = Quaternion.Euler (now);
-				
+				Debug.Log ("Shot!!!!");
+				Stage_Manager.Instance.CurrentStage.Shot ();
 				this.isPressing = false;
 				UI_Game.Instance.SetLimitGaugeVisible (false);
 			}
