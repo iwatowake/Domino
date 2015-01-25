@@ -3189,7 +3189,7 @@ GameObject:
   - 114: {fileID: 11484138}
   m_Layer: 0
   m_Name: goalDomino01
-  m_TagString: DOMINO
+  m_TagString: ITEM
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
