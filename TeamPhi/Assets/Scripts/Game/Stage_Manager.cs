@@ -37,9 +37,9 @@ public class Stage_Manager : SingletonMonoBehaviour<Stage_Manager>
 	
 	public void OnGUI ()
 	{
-		if (GUI.Button (new Rect (10, 10, 100, 20), "Stage Clear")) {
-			this.gameObject.GetComponent<StageInfo> ().StageClear ();
-		}
+//		if (GUI.Button (new Rect (10, 10, 100, 20), "Stage Clear")) {
+//			this.gameObject.GetComponent<StageInfo> ().StageClear ();
+//		}
 	}
 	
 	public void Update ()
@@ -97,8 +97,7 @@ public class Stage_Manager : SingletonMonoBehaviour<Stage_Manager>
 			}
 			
 
-			if(UI_Game.Instance)
-			{
+			if (UI_Game.Instance) {
 				this.DrawBallCountUI ();
 				this.DrawItemUI ();
 				this.DrawScoreUI ();
@@ -306,7 +305,7 @@ public class Stage_Manager : SingletonMonoBehaviour<Stage_Manager>
 	
 	
 	// 1/25 12:28 追加 kojima
-	public List<ItemDefinition.ItemKind> GetColletItemList()
+	public List<ItemDefinition.ItemKind> GetColletItemList ()
 	{
 		return CollectItems;
 	}
