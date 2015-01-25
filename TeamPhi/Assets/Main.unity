@@ -733,7 +733,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07d4f23155826fa4687a12f84ec9aa02, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_eDEBUG_MenuKind_Default: 2
+  m_eDEBUG_MenuKind_Default: 0
   m_eMenuKind_Now: -1
   m_goFadePrefab: {fileID: 1881603804}
   m_goCoverPrefab: {fileID: 30363712}
@@ -8072,7 +8072,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11446932, guid: 3b6d77aff2c07e64bad9e4b84cb684a7, type: 2}
       propertyPath: m_eDEBUG_MenuKind_Default
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 3b6d77aff2c07e64bad9e4b84cb684a7, type: 2}
