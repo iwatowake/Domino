@@ -11,14 +11,10 @@ public class Stage_Manager : SingletonMonoBehaviour<Stage_Manager>
 	const int MAX_DOMINO = 20;
 	const int POINT_OF_STAR = 100;
 	const int POINT_OF_REMAINING_BALL = 1000;
-	
-	
 	private List<StageResult> StageResults;
 	private List<ItemDefinition.ItemKind> CollectItems;
 	private int CollectStarCount;
-	
-	
-	private StageResult CurrentStage;
+	public StageResult CurrentStage;
 	
 	public void Awake ()
 	{
@@ -36,7 +32,7 @@ public class Stage_Manager : SingletonMonoBehaviour<Stage_Manager>
 	
 	public void OnGUI ()
 	{
-		if (GUI.Button (new Rect (10, 10, 200, 100), "Test")) {
+		if (GUI.Button (new Rect (10, 10, 100, 20), "Clear")) {
 		
 			var gameManager = GameObject.FindObjectOfType<Game_Manager> ();
 			gameManager.StageClear ();
@@ -50,6 +46,9 @@ public class Stage_Manager : SingletonMonoBehaviour<Stage_Manager>
 			Debug.Log ("go" + go);
 			this.stageCamera = go.GetComponent<Camera> ();
 			Debug.Log ("cm" + stageCamera);
+		}
+		if (this.stageCamera == null) {
+			return;
 		}
 		
 		if (this.stageCamera != null) {
@@ -80,8 +79,9 @@ public class Stage_Manager : SingletonMonoBehaviour<Stage_Manager>
 		this.stageCamera = go.GetComponent<Camera> ();
 		Debug.Log ("Camera : " + this.stageCamera);
 		this.CurrentStage = new StageResult (ballCount);
+		
+		this.DrawItemUI ();
 	}
-
 	
 	// Exclude Item Bonus and Ball Bonus
 	public int Score {
@@ -122,9 +122,8 @@ public class Stage_Manager : SingletonMonoBehaviour<Stage_Manager>
 	private void DrawItemUI ()
 	{
 		//Items
-		foreach (ItemDefinition.ItemKind kind in Enum.GetValues(typeof(ItemDefinition.ItemKind))) {		
-			// call UI draw method
-			// hoge.SetItemUI(kind, GetItemCount(kind));
+		foreach (ItemDefinition.ItemKind kind in Enum.GetValues(typeof(ItemDefinition.ItemKind))) {	
+			UI_Game.Instance.SetCollectedItems (kind, GetItemCount (kind));
 		}
 	}
 	
@@ -140,10 +139,12 @@ public class Stage_Manager : SingletonMonoBehaviour<Stage_Manager>
 		//call remaining ball UI draw method
 	}
 	
-	private void DrawStaminaUI ()
+	public void DrawStaminaUI ()
 	{
 		// 0.0 ~ 1.0
 		float stamina = CurrentStage == null ? 0.0f : CurrentStage.Stamina;
+		UI_Game.Instance.SetLimitGaugeAmount (stamina);
+		Debug.Log ("Stamina:" + stamina);
 		
 		//call remaining ball UI draw method
 	}
@@ -173,6 +174,13 @@ public class Stage_Manager : SingletonMonoBehaviour<Stage_Manager>
 			this.PutDominoCount = 0;
 		}
 		
+		public bool Puttable {
+			get {
+				return (DOMINO_PER_SHOT - this.PutDominoCount) > 0;
+			}
+		}
+		
+		
 		public int PutDominoCount;
 		public void PutDomino ()
 		{
@@ -200,7 +208,7 @@ public class Stage_Manager : SingletonMonoBehaviour<Stage_Manager>
 			Debug.Log ("Camera is NULL!!!");
 			return;
 		}
-	
+		
 		if (domino.transform.position.z > this.stageCamera.transform.position.z) {
 			this.cameraTarget = new Vector3 (
 				this.stageCamera.transform.position.x
