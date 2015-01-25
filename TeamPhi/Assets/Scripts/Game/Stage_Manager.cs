@@ -79,8 +79,13 @@ public class Stage_Manager : SingletonMonoBehaviour<Stage_Manager>
 					} else {
 						//gameover
 						
-						GameObject.FindGameObjectWithTag ("STAGE").GetComponent<StageInfo> ().StageClear ();
+						this.cameraTarget = new Vector3 (
+							this.stageCamera.transform.position.x
+							, this.stageCamera.transform.position.y
+							, 0f);						
 						
+						GameObject.FindGameObjectWithTag ("STAGE").GetComponent<StageInfo> ().StageClear ();
+												
 //						var gameManager = GameObject.FindObjectOfType<Game_Manager> ();
 //						gameManager.StageClear ();
 					}
@@ -134,6 +139,7 @@ public class Stage_Manager : SingletonMonoBehaviour<Stage_Manager>
 	public int TotalScore {
 		get {
 			int itemBonus = this.CollectItems.Sum (k => ItemDefinition.ScoreByItem (k));
+			Debug.Log ("ItemBonus:" + itemBonus);
 			int remainingBallBonus = this.StageResults.Sum (s => s.RemainBall * POINT_OF_REMAINING_BALL); 
 			
 			return this.Score + itemBonus + remainingBallBonus;
@@ -154,6 +160,7 @@ public class Stage_Manager : SingletonMonoBehaviour<Stage_Manager>
 	public void AddStar ()
 	{
 		this.CollectStarCount++;
+		Debug.Log ("StarCount : " + this.CollectStarCount.ToString ());
 		this.DrawScoreUI ();
 	}
 	
@@ -163,6 +170,7 @@ public class Stage_Manager : SingletonMonoBehaviour<Stage_Manager>
 	{
 		//Items
 		foreach (ItemDefinition.ItemKind kind in Enum.GetValues(typeof(ItemDefinition.ItemKind))) {	
+			Debug.Log ("DrawItem HasItem : " + kind.ToString () + " : " + GetItemCount (kind));
 			UI_Game.Instance.SetCollectedItems (kind, GetItemCount (kind));
 		}
 	}
@@ -170,6 +178,7 @@ public class Stage_Manager : SingletonMonoBehaviour<Stage_Manager>
 	private void DrawScoreUI ()
 	{
 		int score = this.Score;
+		UI_Game.Instance.SetScore (score);
 		// call score UI draw method
 	}
 	

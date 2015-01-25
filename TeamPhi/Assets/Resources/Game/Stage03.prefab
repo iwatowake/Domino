@@ -84,7 +84,7 @@ GameObject:
   - 114: {fileID: 11446888}
   - 114: {fileID: 11435500}
   m_Layer: 0
-  m_Name: Stage02
+  m_Name: Stage03
   m_TagString: STAGE
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6951,7 +6951,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74eb4a48507d5494a8c096e876611275, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  StageNo: 2
+  StageNo: 3
 --- !u!114 &11446888
 MonoBehaviour:
   m_ObjectHideFlags: 1
