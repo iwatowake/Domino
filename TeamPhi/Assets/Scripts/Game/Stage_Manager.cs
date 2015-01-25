@@ -91,12 +91,14 @@ public class Stage_Manager : SingletonMonoBehaviour<Stage_Manager>
 				}
 			}
 			
-			
-			this.DrawBallCountUI ();
-			this.DrawItemUI ();
-			this.DrawScoreUI ();
-			this.DrawStaminaUI ();
-			
+
+			if(UI_Game.Instance)
+			{
+				this.DrawBallCountUI ();
+				this.DrawItemUI ();
+				this.DrawScoreUI ();
+				this.DrawStaminaUI ();
+			}
 		}
 	}
 	

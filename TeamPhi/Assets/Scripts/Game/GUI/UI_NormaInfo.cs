@@ -30,10 +30,13 @@ public class UI_NormaInfo : MonoBehaviour {
 	public void SetItemEnable(ItemDefinition.ItemKind kind)
 	{
 //		mNormaItemSlot [index].sprite = Resources.Load<Sprite>(ItemDefinition.GetItemIconPath (kind));
-		if ((int)kind < mNormaItemSlot.Length) {
-			mNormaItemSlot [(int)kind].color = Color.white;
-		}else{
-			Debug.LogError("Norma SetItem(): references out of range!");
+		if(mNormaItemSlot != null)
+		{
+			if ((int)kind < mNormaItemSlot.Length) {
+				mNormaItemSlot [(int)kind].color = Color.white;
+			}else{
+				Debug.LogError("Norma SetItem(): references out of range!");
+			}
 		}
 	}
 
