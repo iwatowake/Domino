@@ -1896,7 +1896,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e120ae0dc9e181e479187fbe4f6e2ffb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  uiNorma: {fileID: 0}
+  uiNorma: {fileID: 11454146}
   uiTime: {fileID: 11411796}
   uiScore: {fileID: 11488214}
   uiTouchCount: {fileID: 11464176}

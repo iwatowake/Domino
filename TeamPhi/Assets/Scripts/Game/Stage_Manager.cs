@@ -11,10 +11,15 @@ public class Stage_Manager : SingletonMonoBehaviour<Stage_Manager>
 	const int MAX_DOMINO = 20;
 	const int POINT_OF_STAR = 100;
 	const int POINT_OF_REMAINING_BALL = 1000;
+	const float STOP_JUDGE_INTERVAL = 2.0f;
+
 	private List<StageResult> StageResults;
 	private List<ItemDefinition.ItemKind> CollectItems;
 	private int CollectStarCount;
 	public StageResult CurrentStage;
+	
+	public float lastFallTime;
+	
 	
 	public void Awake ()
 	{
@@ -32,31 +37,59 @@ public class Stage_Manager : SingletonMonoBehaviour<Stage_Manager>
 	
 	public void OnGUI ()
 	{
-		if (GUI.Button (new Rect (10, 10, 100, 20), "Clear")) {
-		
-			var gameManager = GameObject.FindObjectOfType<Game_Manager> ();
-			gameManager.StageClear ();
+		if (GUI.Button (new Rect (10, 10, 100, 20), "Stage Clear")) {
+			this.gameObject.GetComponent<StageInfo> ().StageClear ();
 		}
 	}
 	
 	public void Update ()
 	{
-		if (this.stageCamera == null) {	
-			GameObject go = ((GameObject)GameObject.FindGameObjectWithTag ("STAGE_CAMERA"));
-			Debug.Log ("go" + go);
-			this.stageCamera = go.GetComponent<Camera> ();
-			Debug.Log ("cm" + stageCamera);
-		}
-		if (this.stageCamera == null) {
-			return;
-		}
+		var systemManager = GameObject.FindObjectOfType<System_Manager> ();
+		if (systemManager.m_eMenuKind_Now.ToString ().StartsWith ("Stage")) {
 		
-		if (this.stageCamera != null) {
-			this.stageCamera.transform.position = new Vector3 (
+			if (this.stageCamera == null) {	
+				GameObject go = ((GameObject)GameObject.FindGameObjectWithTag ("STAGE_CAMERA"));
+				Debug.Log ("go" + go);
+				if (go == null)
+					return;
+				this.stageCamera = go.GetComponent<Camera> ();
+				Debug.Log ("cm" + stageCamera);
+			}
+			if (this.stageCamera == null) {
+				return;
+			}
+		
+			if (this.stageCamera != null) {
+				this.stageCamera.transform.position = new Vector3 (
 				this.stageCamera.transform.position.x,
 				this.stageCamera.transform.position.y,
-				Mathf.Lerp (this.stageCamera.transform.position.z, this.cameraTarget.z, 0.3f)
-			);
+				Mathf.Lerp (this.stageCamera.transform.position.z, this.cameraTarget.z + 0.05f, 0.1f)
+				);
+			}
+		
+			if (CurrentStage.Shotted) {
+				if (lastFallTime + STOP_JUDGE_INTERVAL <= Time.time) {
+			
+					foreach (GameObject domino in GameObject.FindGameObjectsWithTag("DOMINO")) {
+						Destroy (domino);
+					}
+				
+					if (this.CurrentStage.RemainBall > 0) {
+						this.CurrentStage.NextShot ();
+					} else {
+						//gameover
+						
+						this.gameObject.GetComponent<StageInfo> ().StageClear ();
+						
+//						var gameManager = GameObject.FindObjectOfType<Game_Manager> ();
+//						gameManager.StageClear ();
+					}
+								
+				
+						
+					Debug.Log ("NextShot");
+				}
+			}
 		}
 	}
 	
@@ -65,7 +98,8 @@ public class Stage_Manager : SingletonMonoBehaviour<Stage_Manager>
 		this.StageResults.Clear ();
 		this.CollectItems.Clear ();
 		this.CollectStarCount = 0;
-		this.CurrentStage = null;
+		this.CurrentStage = null; 
+		this.StartStage (5);
 	}
 	
 	public void StartStage (int ballCount)
@@ -75,12 +109,11 @@ public class Stage_Manager : SingletonMonoBehaviour<Stage_Manager>
 			this.CurrentStage = null;
 		}
 		
-		var go = GameObject.FindGameObjectWithTag ("STAGE_CAMERA");
+		var go = GameObject.Find ("StageCamera");//.FindGameObjectWithTag ("STAGE_CAMERA");
 		this.stageCamera = go.GetComponent<Camera> ();
 		Debug.Log ("Camera : " + this.stageCamera);
 		this.CurrentStage = new StageResult (ballCount);
-		
-//		this.DrawItemUI ();
+		this.CurrentStage.NextShot ();
 	}
 	
 	// Exclude Item Bonus and Ball Bonus
@@ -140,6 +173,8 @@ public class Stage_Manager : SingletonMonoBehaviour<Stage_Manager>
 	private void DrawBallCountUI ()
 	{
 		int remainingBalls = CurrentStage == null ? 0 : CurrentStage.RemainBall;
+		
+		UI_Game.Instance.SetActionCount (remainingBalls);
 		//call remaining ball UI draw method
 	}
 	
@@ -148,7 +183,7 @@ public class Stage_Manager : SingletonMonoBehaviour<Stage_Manager>
 		// 0.0 ~ 1.0
 		float stamina = CurrentStage == null ? 0.0f : CurrentStage.Stamina;
 		UI_Game.Instance.SetLimitGaugeAmount (stamina);
-		Debug.Log ("Stamina:" + stamina);
+//		Debug.Log ("Stamina:" + stamina);
 		
 		//call remaining ball UI draw method
 	}
@@ -160,11 +195,38 @@ public class Stage_Manager : SingletonMonoBehaviour<Stage_Manager>
 	}
 	
 	
+	
+	private Vector3 lastDominoPoint;
+	private Vector3 cameraTarget;
+	
+	public void MoveCamera (GameObject domino)
+	{
+		if (this.stageCamera == null) {
+			Debug.Log ("Camera is NULL!!!");
+			return;
+		}
+		
+		if (domino.transform.position.z > this.stageCamera.transform.position.z + 0.05f) {
+			this.cameraTarget = new Vector3 (
+				this.stageCamera.transform.position.x
+				, this.stageCamera.transform.position.y
+				, domino.transform.position.z + 0.05f);
+		}
+		
+		lastDominoPoint = domino.transform.position;
+		Debug.Log ("LastDominoPosition : " + lastDominoPoint);
+				
+		this.lastFallTime = Time.time;
+	}
+	
+	
+	
 	public class StageResult
 	{
 		const int DOMINO_PER_SHOT = 30;
 		public int RemainBall{ get; set; }
 		private List<int> usedDominos; 		
+		public bool Shotted = true;
 		
 		public StageResult (int balls)
 		{
@@ -172,18 +234,37 @@ public class Stage_Manager : SingletonMonoBehaviour<Stage_Manager>
 			this.usedDominos = new List<int> ();
 		}
 		
-		public void Shot (int usedDominoCount)
+		public bool CanShot {
+			get{ return !this.Shotted;}
+		}
+		
+		public void Shot ()
 		{
-			this.usedDominos.Add (usedDominoCount);
+			this.usedDominos.Add (this.PutDominoCount);
 			this.PutDominoCount = 0;
+			this.RemainBall--;
+			Debug.Log ("RemainingBall=" + RemainBall);
+			Stage_Manager.Instance.lastFallTime = Time.time;
+			this.Shotted = true;
+			
+			Stage_Manager.Instance.DrawBallCountUI ();
+		}
+		
+		public void NextShot ()
+		{
+			this.PutDominoCount = 0;
+			this.Shotted = false;
+			
+			Stage_Manager.Instance.DrawBallCountUI ();
 		}
 		
 		public bool Puttable {
 			get {
+				if (!this.CanShot)
+					return false;
 				return (DOMINO_PER_SHOT - this.PutDominoCount) > 0;
 			}
 		}
-		
 		
 		public int PutDominoCount;
 		public void PutDomino ()
@@ -191,6 +272,7 @@ public class Stage_Manager : SingletonMonoBehaviour<Stage_Manager>
 			this.PutDominoCount++;
 			if (DOMINO_PER_SHOT - this.PutDominoCount < 0)
 				throw new UnityException ("Ball count error");
+			
 		}
 		
 		public float Stamina {
@@ -204,22 +286,6 @@ public class Stage_Manager : SingletonMonoBehaviour<Stage_Manager>
 	}
 	
 	
-	private Vector3 cameraTarget;
-	
-	public void MoveCamera (GameObject domino)
-	{
-		if (this.stageCamera == null) {
-			Debug.Log ("Camera is NULL!!!");
-			return;
-		}
-		
-		if (domino.transform.position.z > this.stageCamera.transform.position.z) {
-			this.cameraTarget = new Vector3 (
-				this.stageCamera.transform.position.x
-				, this.stageCamera.transform.position.y
-				, domino.transform.position.z - 0.05f);
-		}
-	}
 	
 	// 1/25 12:28 追加 kojima
 	public List<ItemDefinition.ItemKind> GetColletItemList()

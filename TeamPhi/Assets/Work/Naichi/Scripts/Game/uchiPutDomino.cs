@@ -63,7 +63,7 @@ public class uchiPutDomino : MonoBehaviour
 			this.reset ();
 		}
 				
-		if (Input.GetMouseButton (0)) {		
+		if (Input.GetMouseButton (0)) {	
 			
 			this.isPressing = true;
 			UI_Game.Instance.SetLimitGaugeVisible (true);
@@ -81,6 +81,7 @@ public class uchiPutDomino : MonoBehaviour
 				var target = new Vector3 (hit.point.x, hit.point.y, hit.point.z); 
 				
 				//1つめのドミノお置くトコロ
+				Debug.Log ("First domino : " + this.firstDomino);
 				if (firstDomino == null) {
 					
 					if (Stage_Manager.Instance.CurrentStage.Puttable) {
@@ -187,7 +188,8 @@ public class uchiPutDomino : MonoBehaviour
 				Vector3 now = this.firstDomino.transform.localRotation.eulerAngles;
 				now.x -= 20;
 				this.firstDomino.transform .localRotation = Quaternion.Euler (now);
-				
+				Debug.Log ("Shot!!!!");
+				Stage_Manager.Instance.CurrentStage.Shot ();
 				this.isPressing = false;
 				UI_Game.Instance.SetLimitGaugeVisible (false);
 			}
