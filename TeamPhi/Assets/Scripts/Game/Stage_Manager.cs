@@ -32,7 +32,6 @@ public class Stage_Manager : SingletonMonoBehaviour<Stage_Manager>
 		
 		this.CollectItems = new List<ItemDefinition.ItemKind> ();
 		this.StageResults = new  List<StageResult> ();
-		this.Reset ();
 	}
 	
 	public void OnGUI ()
@@ -66,6 +65,9 @@ public class Stage_Manager : SingletonMonoBehaviour<Stage_Manager>
 				Mathf.Lerp (this.stageCamera.transform.position.z, this.cameraTarget.z + 0.05f, 0.1f)
 				);
 			}
+			
+			if (CurrentStage == null)
+				return;
 		
 			if (CurrentStage.Shotted) {
 				if (lastFallTime + STOP_JUDGE_INTERVAL <= Time.time) {
@@ -108,6 +110,7 @@ public class Stage_Manager : SingletonMonoBehaviour<Stage_Manager>
 	
 	public void Reset ()
 	{
+	
 		this.StageResults.Clear ();
 		this.CollectItems.Clear ();
 		this.CollectStarCount = 0;
