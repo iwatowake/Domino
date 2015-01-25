@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+﻿ using UnityEngine;
 using System.Collections;
 
 public class uchiItem : MonoBehaviour
@@ -14,6 +14,7 @@ public class uchiItem : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
 	{
+		Debug.Log ("Item.Update");
 		this.rigidbody.WakeUp ();
 		
 		if (Stage_Manager.Instance == null)
@@ -21,7 +22,11 @@ public class uchiItem : MonoBehaviour
 		
 		if (this.transform.position.y <= -1) {
 			this.rigidbody.isKinematic = true;  
+			
 			Stage_Manager.Instance.AddItem (this.ItemKind);
+			
+			GameObject.FindGameObjectWithTag ("STAGE").GetComponent<StageInfo> ().StageClear ();
+			
 			Destroy (this.gameObject);
 		}
 		

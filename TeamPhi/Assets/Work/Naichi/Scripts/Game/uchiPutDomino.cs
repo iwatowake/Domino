@@ -64,6 +64,10 @@ public class uchiPutDomino : MonoBehaviour
 		}
 				
 		if (Input.GetMouseButton (0)) {	
+		
+			if (Stage_Manager.Instance.CurrentStage.Shotted)
+				return;
+		
 			
 			this.isPressing = true;
 			UI_Game.Instance.SetLimitGaugeVisible (true);
