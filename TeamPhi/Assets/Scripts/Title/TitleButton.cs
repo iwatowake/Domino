@@ -21,9 +21,6 @@ public class TitleButton : MonoBehaviour {
 			if(Physics.Raycast(ray, out hitInfo, RayCastMaxDistance, 1 << LayerMask.NameToLayer("TitleLogo"))){
 				TitleClick = true;
 			}
-			if(Physics.Raycast(ray, out hitInfo, RayCastMaxDistance, 1 << LayerMask.NameToLayer("TwitterLogo"))){
-				TweetManager.Tweet("テスト","http://hoge.com/","");
-			}
 		}
 	}
 
